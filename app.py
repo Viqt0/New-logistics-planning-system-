@@ -360,9 +360,9 @@ def deliveries():
             FROM deliveries d
             LEFT JOIN drivers dr ON d.driver_id = dr.id
             LEFT JOIN vehicles v ON d.vehicle_id = v.id
-            WHERE LOWER(d.customer) = LOWER(?)
+            WHERE d.user_id = ?
             ORDER BY d.id DESC
-        """, (session.get("name", ""),)).fetchall()
+        """, (session.get("user_id"),)).fetchall()
 
     elif role in ("Administrator", "Logistics Manager", "Dispatcher", "Driver"):
         rows = con.execute("""
